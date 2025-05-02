@@ -70,15 +70,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return new ResourcesUser(User::paginate(request()->get('per_page', 10)));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return abort(404);
+        return User::paginate(request()->get('per_page', 10));
     }
 
     /**
@@ -86,7 +78,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return abort(404);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User created successfully.',
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -94,15 +102,15 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        return abort(404);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return abort(404);
+        $user = User::findOrFail($id);
+        if (!$user) {
+            return error('User not found', 404);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'User retrieved successfully.',
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -110,7 +118,17 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return abort(404);
+        $user = User::find($id);
+        if (!$user) {
+            return error('User not found', 404);
+        }
+
+        $user->update($request->all());
+        return response()->json([
+            'success' => true,
+            'message' => 'User updated successfully.',
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -118,6 +136,15 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        return abort(404);
+        $user = User::find($id);
+        if (!$user) {
+            return error('User not found', 404);
+        }
+
+        $user->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully.',
+        ]);
     }
 }
