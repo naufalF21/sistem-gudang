@@ -91,4 +91,42 @@ class MutationController extends Controller
             'message' => 'Mutation deleted successfully.',
         ]);
     }
+
+    public function getMutationsByGoodsId($goodsId)
+    {
+        $mutations = Mutation::where('goods_id', $goodsId)->paginate(request()->get('per_page', 10));
+
+        if ($mutations->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No mutations found for this goods ID.',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Mutations retrieved successfully.',
+            'goods_id' => $goodsId,
+            'mutations' => $mutations,
+        ]);
+    }
+
+    public function getMutationsByUserId($userId)
+    {
+        $mutations = Mutation::where('user_id', $userId)->paginate(request()->get('per_page', 10));
+
+        if ($mutations->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No mutations found for this user ID.',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Mutations retrieved successfully.',
+            'user_id' => $userId,
+            'mutations' => $mutations,
+        ]);
+    }
 }

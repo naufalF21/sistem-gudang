@@ -19,6 +19,9 @@ Route::prefix('v1')->group(function () {
         Route::resource('mutations', MutationController::class);
         Route::resource('stocks', StockController::class);
 
+        Route::get('/mutations/user/{userId}', [MutationController::class, 'getMutationsByUserId']);
+        Route::get('/mutations/goods/{goodsId}', [MutationController::class, 'getMutationsByGoodsId']);
+
         Route::get('/profile', [AuthController::class, 'profile']);
         Route::post('/logout', [AuthController::class, 'logout']);
     });
