@@ -27,4 +27,14 @@ class Goods extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function mutations()
+    {
+        return $this->hasMany(Mutation::class, 'goods_id');
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class, 'goods_id');
+    }
 }

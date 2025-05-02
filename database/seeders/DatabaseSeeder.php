@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Goods;
+use App\Models\Mutation;
+use App\Models\Stock;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,5 +20,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Category::factory(10)->create();
         Goods::factory(10)->create();
+        Mutation::factory(10)->create();
+        Stock::factory(10)->create();
     }
 }

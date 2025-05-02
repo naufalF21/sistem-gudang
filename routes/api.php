@@ -4,6 +4,8 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\GoodsController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\MutationController;
+use App\Http\Controllers\API\StockController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -14,6 +16,8 @@ Route::prefix('v1')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('goods', GoodsController::class);
+        Route::resource('mutations', MutationController::class);
+        Route::resource('stocks', StockController::class);
 
         Route::get('/profile', [AuthController::class, 'profile']);
         Route::post('/logout', [AuthController::class, 'logout']);
