@@ -52,8 +52,12 @@ class GoodsController extends Controller
     {
         $goods = Goods::findOrFail($id);
         if (!$goods) {
-            return error('Goods not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Goods not found',
+            ], 404);
         }
+
         return response()->json([
             'success' => true,
             'message' => 'Goods retrieved successfully.',
@@ -68,7 +72,10 @@ class GoodsController extends Controller
     {
         $goods = Goods::find($id);
         if (!$goods) {
-            return error('Goods not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Goods not found',
+            ], 404);
         }
 
         $goods->update($request->all());
@@ -86,7 +93,10 @@ class GoodsController extends Controller
     {
         $goods = Goods::find($id);
         if (!$goods) {
-            return error('Goods not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Goods not found',
+            ], 404);
         }
 
         $goods->delete();

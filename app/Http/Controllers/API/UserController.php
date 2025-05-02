@@ -104,7 +104,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if (!$user) {
-            return error('User not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ], 404);
         }
         return response()->json([
             'success' => true,
@@ -120,10 +123,14 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if (!$user) {
-            return error('User not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ], 404);
         }
 
         $user->update($request->all());
+
         return response()->json([
             'success' => true,
             'message' => 'User updated successfully.',
@@ -138,7 +145,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if (!$user) {
-            return error('User not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ], 404);
         }
 
         $user->delete();

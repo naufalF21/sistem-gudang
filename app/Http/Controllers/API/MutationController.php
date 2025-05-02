@@ -48,8 +48,12 @@ class MutationController extends Controller
     {
         $mutation = Mutation::findOrFail($id);
         if (!$mutation) {
-            return error('Mutation not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Mutation not found',
+            ], 404);
         }
+
         return response()->json([
             'success' => true,
             'message' => 'Mutation retrieved successfully.',
@@ -64,7 +68,10 @@ class MutationController extends Controller
     {
         $mutation = Mutation::find($id);
         if (!$mutation) {
-            return error('Mutation not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Mutation not found',
+            ], 404);
         }
 
         $mutation->update($request->all());
@@ -82,7 +89,10 @@ class MutationController extends Controller
     {
         $mutation = Mutation::find($id);
         if (!$mutation) {
-            return error('Mutation not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Mutation not found',
+            ], 404);
         }
 
         $mutation->delete();

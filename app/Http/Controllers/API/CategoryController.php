@@ -40,8 +40,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         if (!$category) {
-            return error('Category not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not found',
+            ], 404);
         }
+
         return response()->json([
             'success' => true,
             'message' => 'Category retrieved successfully.',
@@ -56,7 +60,10 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if (!$category) {
-            return error('Category not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not found',
+            ], 404);
         }
 
         $category->update($request->all());
@@ -74,7 +81,10 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if (!$category) {
-            return error('Category not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not found',
+            ], 404);
         }
 
         $category->delete();

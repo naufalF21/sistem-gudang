@@ -42,8 +42,12 @@ class StockController extends Controller
     {
         $stock = Stock::findOrFail($id);
         if (!$stock) {
-            return error('Stock not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Stock not found',
+            ], 404);
         }
+
         return response()->json([
             'success' => true,
             'message' => 'Stock retrieved successfully.',
@@ -58,7 +62,10 @@ class StockController extends Controller
     {
         $stock = Stock::find($id);
         if (!$stock) {
-            return error('Stock not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Stock not found',
+            ], 404);
         }
 
         $stock->update($request->all());
@@ -76,7 +83,10 @@ class StockController extends Controller
     {
         $stock = Stock::find($id);
         if (!$stock) {
-            return error('Stock not found', 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Stock not found',
+            ], 404);
         }
 
         $stock->delete();
