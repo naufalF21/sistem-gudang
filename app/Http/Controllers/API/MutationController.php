@@ -106,7 +106,6 @@ class MutationController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Mutations retrieved successfully.',
-            'goods_id' => $goodsId,
             'mutations' => $mutations,
         ]);
     }
@@ -125,7 +124,6 @@ class MutationController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Mutations retrieved successfully.',
-            'user_id' => $userId,
             'mutations' => $mutations,
         ]);
     }
